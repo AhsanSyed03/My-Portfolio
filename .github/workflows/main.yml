@@ -10,6 +10,8 @@ permissions:
 
 jobs:
   deploy:
+    environment: 
+      name: github-pages
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -19,7 +21,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
-          
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4        
