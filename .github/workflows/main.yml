@@ -1,8 +1,8 @@
-name: Deploy Portfolio Website
+name: Deploying Portfolio Website
 on:
   push:
     branches:
-      - main   # Change if your default branch is different
+      - master
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -15,4 +15,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .   # Root folder since it's static
+          publish_dir: .   
