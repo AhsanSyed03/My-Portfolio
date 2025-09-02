@@ -1,28 +1,21 @@
-name: Deploying Portfolio Website
+name: Email on Push
 on:
   push:
     branches:
-      - master
-
-permissions:
-  pages : write 
-  id-token: write
+      - main   # or whichever branch you want
 
 jobs:
-  deploy:
-    environment: 
-      name: github-pages
+  notify:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Send email
+        uses: dawidd6/action-send-mail@v3
         with:
-          path: .
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4        
-      
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "New commit pushed to repo"
+          to: your-email@example.com
+          from: GitHub Bot <your-email@example.com>
+          body: "A new commit was pushed to ${{ github.repository }} by ${{ github.actor }}."
